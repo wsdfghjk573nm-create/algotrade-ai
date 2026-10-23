@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlgoTrade AI — Interactive Demo (Sample Data)</title>
+<meta name="description" content="Interactive browser demo of AlgoTrade AI, an educational algorithmic trading platform. Build strategies, backtest them honestly and practise with virtual money. All prices on this page are SAMPLE data generated in your browser.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="logo" href="#home" aria-label="AlgoTrade AI — Home">
+    <span class="logo-mark">A</span><span class="logo-name">AlgoTrade <span>AI</span></span>
+  </a>
+  <nav class="mainnav" id="mainNav">
+    <a href="#home">Home</a>
+    <a href="#features">Features</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#backtest">Backtest</a>
+    <a href="#paper">Paper Trading</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <h1>Master Algorithmic Trading —<br><span class="up">Without Risking</span> <span class="down">Real Money</span></h1>
+    <p class="hero-sub">Build trading algorithms visually or in Python, backtest them honestly — with real trading costs, slippage and no look-ahead bias — then practise in a paper-trading simulator until the strategy earns your trust.</p>
+    <div class="hero-ctas">
+      <a class="btn primary big" href="#backtest">Run the Backtest Demo</a>
+      <a class="btn big" href="#features">Explore Features</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-value">66</span><span class="hero-stat-label">automated tests passed on the full app</span></div>
+      <div class="hero-stat"><span class="hero-stat-value">₹1,00,000</span><span class="hero-stat-label">virtual paper-trading balance</span></div>
+      <div class="hero-stat"><span class="hero-stat-value">₹0</span><span class="hero-stat-label">real money — ever</span></div>
+      <div class="hero-stat"><span class="hero-stat-value">12</span><span class="hero-stat-label">platform pages in the full version</span></div>
+    </div>
+    <div class="notice">
+      <strong>Interactive demo.</strong> All prices on this page are <span class="chip sample">SAMPLE</span> data generated in your browser — not real market prices. The full working app (accounts, live delayed market data, server backtesting, saved paper-trading accounts) runs from the source code in this repository and needs a server.
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <h2 class="section-title" id="features">Features Built for Honest Learning</h2>
+  <p class="section-sub">Everything you need to design, test and practise a trading strategy — with the costs and risks shown upfront, not hidden.</p>
+  <div class="features-grid">
+    <div class="card feat-card">
+      <span class="feat-icon" aria-hidden="true">🧩</span>
+      <h3>Visual Strategy Builder</h3>
+      <p class="muted">Design trading rules by arranging condition blocks — moving-average crossovers, RSI levels, price conditions — with entry, exit, stop-loss and take-profit rules. No code needed to start; the full version also runs your own Python strategies in a sandbox.</p>
+    </div>
+    <div class="card feat-card">
+      <span class="feat-icon" aria-hidden="true">📊</span>
+      <h3>Backtesting Engine</h3>
+      <p class="muted">Test a strategy on historical data the honest way: signals fill at the next bar's open, commission is charged on both sides, slippage is applied to every fill — so results are never flattered by look-ahead bias.</p>
+    </div>
+    <div class="card feat-card">
+      <span class="feat-icon" aria-hidden="true">🪙</span>
+      <h3>Paper Trading Simulator</h3>
+      <p class="muted">Practise with ₹1,00,000 of virtual money. Positions, average cost and profit &amp; loss are tracked for you, so every beginner mistake costs exactly nothing.</p>
+    </div>
+    <div class="card feat-card">
+      <span class="feat-icon" aria-hidden="true">📐</span>
+      <h3>Technical Indicators</h3>
+      <p class="muted">SMA, EMA, RSI (Wilder), MACD and Bollinger Bands — computed the standard way and drawn live on the chart, ready to plug into your strategy rules.</p>
+    </div>
+    <div class="card feat-card">
+      <span class="feat-icon" aria-hidden="true">🤖</span>
+      <h3>AI Trading Assistant</h3>
+      <p class="muted">Ask questions in plain language and get educational explanations of indicators, strategies and your own backtest results. It teaches and explains — it never predicts prices and never promises profit.</p>
+    </div>
+    <div class="card feat-card">
+      <span class="feat-icon" aria-hidden="true">🛒</span>
+      <h3>Strategy Marketplace</h3>
+      <p class="muted">Browse example strategies shared by other learners and clone one as your starting point. Every result is labelled user-submitted and not independently verified — judge a strategy by its method, not its marketing.</p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD DEMO -->
+  <h2 class="section-title" id="dashboard">Dashboard <span class="chip sample">SAMPLE DATA</span></h2>
+  <div class="card">
+    <div class="controls-row">
+      <label>Sample symbol
+        <select id="symbolSelect" class="select">
+          <option value="RELIANCE-DEMO">RELIANCE (Sample)</option>
+          <option value="TCS-DEMO">TCS (Sample)</option>
+          <option value="BTC-DEMO">BTC (Sample)</option>
+        </select>
+      </label>
+      <button class="btn" id="regenBtn" type="button">↻ Regenerate sample data</button>
+      <span class="muted small">A fresh random series is generated in your browser. Nothing is fetched from any server.</span>
+    </div>
+    <div class="stats-grid">
+      <div class="stat"><span class="stat-label">Latest price (Sample)</span><span class="stat-value" id="statPrice">—</span></div>
+      <div class="stat"><span class="stat-label">Change</span><span class="stat-value" id="statChange">—</span></div>
+      <div class="stat"><span class="stat-label">Volume (last bar)</span><span class="stat-value" id="statVolume">—</span></div>
+      <div class="stat"><span class="stat-label">RSI (14)</span><span class="stat-value" id="statRsi">—</span></div>
+      <div class="stat"><span class="stat-label">MACD / Signal</span><span class="stat-value" id="statMacd">—</span></div>
+    </div>
+    <canvas id="priceChart" class="chart" height="340"></canvas>
+    <div class="legend">
+      <span><i class="sw candle"></i> Candles (Sample)</span>
+      <span><i class="sw sma20"></i> SMA 20</span>
+      <span><i class="sw sma50"></i> SMA 50</span>
+    </div>
+  </div>
+
+  <!-- BUILDER DEMO -->
+  <h2 class="section-title" id="builder">Algorithm Builder <span class="chip sample">DEMO</span></h2>
+  <div class="card">
+    <p class="muted">Arrange condition blocks to describe a strategy — this mirrors the full version's visual builder (the seeded example there is the classic <strong>golden cross</strong>: buy when SMA 50 crosses above SMA 200). Reorder with ↑ ↓, remove with ✕, and add your own blocks below. <strong>Saving strategies needs the full version</strong> (it stores them in your account).</p>
+    <ul class="block-list" id="blockList"></ul>
+    <div class="controls-row builder-add">
+      <label>Side
+        <select id="newSide" class="select"><option value="entry">Entry</option><option value="exit">Exit</option></select>
+      </label>
+      <label>Left
+        <select id="newLeft" class="select"><option>SMA</option><option>EMA</option><option>RSI</option><option>Price</option></select>
+      </label>
+      <label>Period / —
+        <input id="newLeftParam" class="input" type="number" value="50" min="1" max="400">
+      </label>
+      <label>Condition
+        <select id="newOp" class="select">
+          <option>crosses above</option><option>crosses below</option>
+          <option>is greater than</option><option>is less than</option>
+        </select>
+      </label>
+      <label>Right
+        <select id="newRight" class="select"><option>SMA</option><option>EMA</option><option>Price</option><option>Value</option></select>
+      </label>
+      <label>Period / value
+        <input id="newRightParam" class="input" type="number" value="200" min="0" max="100000">
+      </label>
+      <button class="btn primary" id="addBlockBtn" type="button">+ Add block</button>
+    </div>
+  </div>
+
+  <!-- BACKTEST DEMO -->
+  <h2 class="section-title" id="backtest">Backtest Demo <span class="chip sample">SAMPLE DATA</span></h2>
+  <div class="card">
+    <p class="muted">A real SMA-crossover backtest, running in your browser on the sample series shown above — using the <strong>same rules as the full engine</strong>: the signal is read at a bar's close and filled at the <strong>next bar's open</strong> (no look-ahead bias), with slippage on every fill and commission on both entry and exit. The demo defaults to 20/50 because a 50/200 crossover needs much longer data than 260 sample bars.</p>
+    <div class="controls-row">
+      <label>Fast SMA <input id="btFast" class="input" type="number" value="20" min="2" max="200"></label>
+      <label>Slow SMA <input id="btSlow" class="input" type="number" value="50" min="3" max="300"></label>
+      <label>Starting capital (₹) <input id="btCapital" class="input" type="number" value="100000" min="1000" step="1000"></label>
+      <label>Commission % <input id="btCommission" class="input" type="number" value="0.1" min="0" max="5" step="0.01"></label>
+      <label>Slippage % <input id="btSlippage" class="input" type="number" value="0.05" min="0" max="5" step="0.01"></label>
+      <button class="btn primary" id="runBacktestBtn" type="button">▶ Run Backtest</button>
+    </div>
+    <p class="muted small" id="btSymbolNote"></p>
+    <div class="stats-grid" id="btResults" hidden>
+      <div class="stat"><span class="stat-label">Total return</span><span class="stat-value" id="mReturn">—</span></div>
+      <div class="stat"><span class="stat-label">Buy &amp; hold (same series)</span><span class="stat-value" id="mBench">—</span></div>
+      <div class="stat"><span class="stat-label">Max drawdown</span><span class="stat-value" id="mDrawdown">—</span></div>
+      <div class="stat"><span class="stat-label">Win rate</span><span class="stat-value" id="mWinRate">—</span></div>
+      <div class="stat"><span class="stat-label">Trades</span><span class="stat-value" id="mTrades">—</span></div>
+      <div class="stat"><span class="stat-label">Profit factor</span><span class="stat-value" id="mPf">—</span></div>
+      <div class="stat"><span class="stat-label">Final equity</span><span class="stat-value" id="mEquity">—</span></div>
+    </div>
+    <canvas id="equityChart" class="chart" height="220" hidden></canvas>
+    <div class="table-wrap">
+      <table class="table" id="btTradesTable" hidden>
+        <thead><tr><th>Type</th><th>Bar / Date</th><th>Price (₹)</th><th>Qty</th><th>P&amp;L (₹)</th></tr></thead>
+        <tbody id="btTradesBody"></tbody>
+      </table>
+    </div>
+    <p class="muted small" id="btEmpty">No backtest run yet — press “Run Backtest”.</p>
+    <p class="disclaimer">Past performance does not guarantee future results. This demo runs on randomly generated sample data, so its numbers say nothing about any real market or strategy.</p>
+  </div>
+
+  <!-- PAPER TRADING DEMO -->
+  <h2 class="section-title" id="paper">Paper Trading <span class="chip sample">DEMO</span></h2>
+  <div class="card">
+    <p class="muted">Practise with virtual money at the current sample price. This demo keeps everything in this page only — <strong>reload the page and the account resets</strong>. In the full version, paper accounts are saved per user on the server. No real money, no broker, ever.</p>
+    <div class="stats-grid">
+      <div class="stat"><span class="stat-label">Cash balance</span><span class="stat-value" id="paperCash">—</span></div>
+      <div class="stat"><span class="stat-label">Current sample price</span><span class="stat-value" id="paperPrice">—</span></div>
+      <div class="stat"><span class="stat-label">Position</span><span class="stat-value" id="paperPosition">—</span></div>
+      <div class="stat"><span class="stat-label">Unrealised P&amp;L</span><span class="stat-value" id="paperPnl">—</span></div>
+      <div class="stat"><span class="stat-label">Account equity</span><span class="stat-value" id="paperEquity">—</span></div>
+    </div>
+    <div class="controls-row">
+      <label>Quantity <input id="paperQty" class="input" type="number" value="10" min="1" step="1"></label>
+      <button class="btn green" id="paperBuyBtn" type="button">Buy</button>
+      <button class="btn red" id="paperSellBtn" type="button">Sell</button>
+      <button class="btn" id="paperResetBtn" type="button">Reset account (₹1,00,000)</button>
+    </div>
+    <p class="paper-msg" id="paperMsg" role="status"></p>
+    <h3 class="sub-title">Trade history (this page session)</h3>
+    <ul class="history-list" id="paperHistory"><li class="muted">No trades yet.</li></ul>
+  </div>
+
+  <!-- ASSISTANT DEMO -->
+  <h2 class="section-title" id="assistant">AI Assistant <span class="chip sample">DEMO</span></h2>
+  <div class="card">
+    <p class="muted">Built-in educational demo — tap a question. The full version's assistant uses the same educational engine and can also review <em>your</em> real backtest results in plain language. It never predicts prices or promises profits.</p>
+    <div class="chips" id="assistantChips">
+      <button class="btn small" type="button" data-q="rsi">What is RSI?</button>
+      <button class="btn small" type="button" data-q="golden">Explain the golden cross</button>
+      <button class="btn small" type="button" data-q="drawdown">What is drawdown?</button>
+      <button class="btn small" type="button" data-q="slippage">What is slippage?</button>
+      <button class="btn small" type="button" data-q="profit">Can this guarantee profit?</button>
+    </div>
+    <div class="answer-box" id="assistantAnswer">Tap a question above to see an answer.</div>
+  </div>
+
+  <!-- MARKETPLACE DEMO -->
+  <h2 class="section-title" id="marketplace">Strategy Marketplace <span class="chip sample">EXAMPLES</span></h2>
+  <div class="cards-3">
+    <div class="card">
+      <h3>Golden Cross Trend Follower</h3>
+      <p class="muted small">SMA 50 / SMA 200 crossover · long-only · daily bars</p>
+      <p class="stat-line">Sample backtest: <strong>+18.4%</strong> · Win rate 41% · Max DD −12.6%</p>
+      <p class="muted small">The classic trend-following example seeded in the full version.</p>
+      <span class="chip example">EXAMPLE</span>
+    </div>
+    <div class="card">
+      <h3>RSI Mean Reversion</h3>
+      <p class="muted small">Buy when RSI(14) falls below 30 · exit above 55</p>
+      <p class="stat-line">Sample backtest: <strong>+7.9%</strong> · Win rate 58% · Max DD −9.3%</p>
+      <p class="muted small">Buys oversold dips and exits on recovery — works until a strong trend arrives.</p>
+      <span class="chip example">EXAMPLE</span>
+    </div>
+    <div class="card">
+      <h3>Bollinger Breakout</h3>
+      <p class="muted small">Close above upper Bollinger Band (20, 2) · stop-loss 5%</p>
+      <p class="stat-line">Sample backtest: <strong>+11.2%</strong> · Win rate 36% · Max DD −18.1%</p>
+      <p class="muted small">Rides volatility breakouts; many small losses, a few large wins.</p>
+      <span class="chip example">EXAMPLE</span>
+    </div>
+  </div>
+  <p class="notice slim">Honesty note: these are example cards with illustrative sample statistics. In the full version, marketplace statistics are <strong>user-submitted and are not independently verified</strong> either — they are always labelled that way. Never trust a strategy just because its numbers look good.</p>
+
+  <!-- LEARN -->
+  <h2 class="section-title" id="learn">Learn</h2>
+  <div class="cards-2">
+    <div class="card">
+      <h3>RSI — Relative Strength Index</h3>
+      <p class="muted">RSI measures how fast and how far a price has moved recently, on a 0–100 scale. Above 70 is often called “overbought”, below 30 “oversold” — but in a strong trend RSI can stay extreme for a long time, so it is a clue, not a signal by itself.</p>
+    </div>
+    <div class="card">
+      <h3>Moving-average crossover</h3>
+      <p class="muted">When a fast moving average (e.g. SMA 50) crosses above a slow one (e.g. SMA 200) — the “golden cross” — it suggests momentum has turned up; the reverse (“death cross”) suggests the opposite. Crossovers lag the market: they confirm trends late and whipsaw in sideways markets.</p>
+    </div>
+    <div class="card">
+      <h3>Risk management</h3>
+      <p class="muted">Decide before you trade: how much of your capital one trade may risk (many use 1–2%), where your stop-loss sits, and how large the position is. Surviving losing streaks matters more than any single winning trade.</p>
+    </div>
+    <div class="card">
+      <h3>Why backtests can mislead</h3>
+      <p class="muted">Look-ahead bias (using tomorrow's data today), ignoring commissions and slippage, over-fitting rules to one lucky period, and survivorship bias can all make a weak strategy look brilliant. Honest backtests use next-bar fills, charge real costs, and still only describe the past.</p>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <h2 class="section-title" id="about">About AlgoTrade AI</h2>
+  <div class="card about-card">
+    <p>AlgoTrade AI is a learning-first platform for algorithmic trading. It brings together a visual strategy builder, an honest backtesting engine, a marketplace of example strategies and a paper-trading simulator — so you can take an idea like <em>“what happens if I buy when the fast moving average crosses above the slow one?”</em> and turn it into a tested, practised result, all in one place.</p>
+    <p>It is built for complete beginners and experienced traders alike: no code is needed to create your first strategy, while advanced users can write Python strategies in the full version. The full version works with delayed market data that is always clearly labelled, with labelled sample data as a fallback. Above all, nothing here trades real money — AlgoTrade AI exists so you can learn how strategies behave, and what they cost, before you ever consider risking a single rupee of your own.</p>
+  </div>
+
+  <!-- MISSION -->
+  <h2 class="section-title" id="mission">Our Mission</h2>
+  <div class="mission-band">
+    <p>To make algorithmic-trading education <strong>safe and honest</strong>. Practise first, with virtual money. Understand costs, drawdowns and risk before you think about returns. Never trust a strategy you have not tested, never believe a tool that promises profit — and never risk real money on an idea you have only read about.</p>
+  </div>
+
+  <!-- FULL VERSION -->
+  <div class="full-band" id="full-version">
+    <h2>The Full Version</h2>
+    <p>This page is an interactive demo that runs entirely in your browser on sample data. The <strong>complete AlgoTrade AI application</strong> — user accounts with saved strategies, delayed <em>real</em> market data via Yahoo Finance (clearly labelled, with SAMPLE fallback), the server backtesting engine with stop-loss/take-profit and a buy-&amp;-hold benchmark, saved paper-trading accounts, the strategy marketplace, and the educational AI assistant — is a FastAPI + Next.js application that <strong>needs a server to run</strong>, so it cannot live on this simple page.</p>
+    <p>The complete source code is free to read and download on GitHub, with step-by-step run instructions in the README (local run or Docker, database setup, environment variables).</p>
+    <p><a class="btn primary big" href="https://github.com/wsdfghjk573nm-create/algotrade-ai">Get the Full Source Code on GitHub</a></p>
+    <p class="disclaimer light">Trading involves risk, including the possible loss of capital. AlgoTrade AI is an educational tool — paper trading only, never a live broker — and is not financial advice. Past performance does not guarantee future results. No tool can predict markets or guarantee profits.</p>
+  </div>
+
+  <!-- CONTACT -->
+  <h2 class="section-title" id="contact">Get In Touch</h2>
+  <div class="card contact-card">
+    <p>Questions, suggestions, or a bug to report? AlgoTrade AI is an open-source project, and the one home for everything is its GitHub repository — that is the only contact channel, and it is a public one, so please don't post anything private there.</p>
+    <p>There is no sales team and no phone or email support — and nobody from AlgoTrade AI will ever ask you for money, your broker login, or a fee for “guaranteed returns”. Anyone who does is not us.</p>
+    <div class="hero-ctas">
+      <a class="btn primary big" href="https://github.com/wsdfghjk573nm-create/algotrade-ai">Open the GitHub Repository</a>
+      <a class="btn big" href="https://github.com/wsdfghjk573nm-create/algotrade-ai/issues">Ask a Question via GitHub Issues</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p><strong>AlgoTrade AI</strong> · Learn algorithmic trading without risking real money.</p>
+  <p class="muted">Demo page — all data shown here is SAMPLE data generated in your browser. Trading involves risk; this is an educational tool, not financial advice. Past performance does not guarantee future results.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
